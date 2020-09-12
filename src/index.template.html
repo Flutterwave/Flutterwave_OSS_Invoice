@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= htmlWebpackPlugin.options.productName %></title>
+
+    <meta charset="utf-8">
+    <meta content="<%= htmlWebpackPlugin.options.productDescription %>" name="description">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="no" name="msapplication-tap-highlight">
+    <meta content="text/html; charset=utf-8" http-equiv="content-type"/>
+    <meta content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width<% if (htmlWebpackPlugin.options.ctx.mode.cordova || htmlWebpackPlugin.options.ctx.mode.capacitor) { %>, viewport-fit=cover<% } %>"
+          name="viewport">
+
+    <% if (htmlWebpackPlugin.options.ctx.prod) { %>
+    <link href="app/statics/app-logo-128x128.png" rel="icon" type="image/png">
+    <link href="app/statics/icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="app/statics/icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="app/statics/icons/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+    <link href="app/statics/icons/favicon.ico" rel="icon" type="image/ico">
+    <% } else { %>
+    <link href="statics/app-logo-128x128.png" rel="icon" type="image/png">
+    <link href="statics/icons/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png">
+    <link href="statics/icons/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png">
+    <link href="statics/icons/favicon-96x96.png" rel="icon" sizes="96x96" type="image/png">
+    <link href="statics/icons/favicon.ico" rel="icon" type="image/ico">
+    <% } %>
+</head>
+<body>
+<!-- DO NOT touch the following DIV -->
+<div id="q-app"></div>
+</body>
+</html>

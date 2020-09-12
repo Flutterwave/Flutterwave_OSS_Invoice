@@ -1,0 +1,127 @@
+$animationDuration: .3s; // specify animation duration. Default value: 1s
+@import "~vue2-animate/src/sass/vue2-animate.scss";
+
+// Fonts (Safari, Android, iOS)
+
+@font-face {
+    font-family: 'Averta Std';
+    src: url('fonts/AvertaStdRegular.woff2') format('woff2'),
+    url('fonts/AvertaStdRegular.woff') format('woff'),
+    url("fonts/AvertaStdRegular.ttf") format("truetype"),
+    url("fonts/AvertaStdRegular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Averta Std';
+    src: url('fonts/AvertaStdSemibold.woff2') format('woff2'),
+    url('fonts/AvertaStdSemibold.woff') format('woff'),
+    url("fonts/AvertaStdSemibold.ttf") format("truetype"),
+    url("fonts/AvertaStdSemibold.otf") format("opentype");
+    font-weight: 600;
+    font-style: normal
+}
+
+@font-face {
+    font-family: 'Averta Std';
+    src: url('fonts/AvertaStdBold.woff2') format('woff2'),
+    url('fonts/AvertaStdBold.woff') format('woff'),
+    url("fonts/AvertaStdBold.ttf") format("truetype"),
+    url("fonts/AvertaStdBold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal
+}
+
+
+// app global css in SCSS form
+
+.text-sidebar-blue {
+    color: $sidebar-blue;
+}
+
+.bg-sidebar-blue {
+    background: $sidebar-blue;
+}
+
+.text-small {
+    font-size: .9rem;
+}
+
+.text-smaller {
+    font-size: .7rem;
+}
+
+///////
+
+body {
+    background: #F4F6F8;
+    color: #0c0c0c;
+    font-family: 'Averta Std', sans-serif;
+}
+
+.q-field--outlined .q-field__control {
+    border-radius: 4px;
+    height: 50px
+}
+
+.q-field--outlined .q-field__bottom {
+    color: red;
+}
+
+.q-field--outlined .q-field__append,
+.q-field--outlined .q-field__prepend {
+    height: 100%;
+}
+
+.shadow-custom {
+    box-shadow: 0 1.2px 5.6px 0 rgba(0, 0, 0, 0.12)
+}
+
+.shadow-btn {
+    box-shadow: 1px 1px 3px 0 rgba(50, 50, 54, 0.13), 0 0 3px 1px rgba(63, 63, 68, 0.05);
+}
+
+.q-table th {
+    font-size: 14px;
+    font-weight: bold;
+    background: #fafcff;
+    border-top: solid 1px #f1f1f3;
+    border-bottom: solid 1px #f1f1f3;
+}
+
+.q-table tbody td {
+    font-size: 14px;
+    border-bottom: solid 1px #f1f1f3;
+    cursor: pointer;
+}
+
+.q-markup-table.no-click tbody td {
+    cursor: auto;
+}
+
+.q-btn.disabled {
+    opacity: .4 !important;
+}
+
+.sm-btn {
+    font-size: 12px;
+
+    .q-icon {
+        font-size: 12px;
+    }
+}
+
+.main-section {
+    margin-bottom: 1em;
+    border-radius: 3px
+}
+
+.text-14 {
+    font-size: 14px;
+}
+
+.text-16 {
+    font-size: 16px;
+}
+
