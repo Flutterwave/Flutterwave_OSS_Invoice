@@ -21,10 +21,6 @@
 Route::get('/', function () {
     return 'Flutterwave Invoices — OSS';
 });
-Route::get('/invoice', function () {
-    $invoice = (new \App\Http\Controllers\InvoiceController())->_fetchInvoice(1, false)[0];
-    return view('pdf.invoice', ['invoice' => $invoice]);
-});
 
 Route::namespace('Auth')->prefix('auth')->group(function () {
     Route::post('/login', 'LoginController@authenticate');
