@@ -1,0 +1,25 @@
+name: Flutterwave Invoices
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Copy .env
+        run: php -r "copy('.env.testing', '.env');"
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist  --ignore-platform-reqs
+      - name: Create Database
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+          php artisan migrate
+      - name: Generate key and optimize
+        run: php artisan key:generate
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: vendor/bin/phpunit
