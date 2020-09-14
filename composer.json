@@ -35,9 +35,11 @@
         "staudenmeir/eloquent-eager-limit": "dev-master"
     },
     "require-dev": {
+        "aiiro/laravel-factory-generator": "^0.0.3",
         "facade/ignition": "^2.0",
         "fzaninotto/faker": "^1.9",
         "mockery/mockery": "^1.3",
+        "mpociot/laravel-test-factory-helper": "^2.1",
         "nunomaduro/collision": "^4.1",
         "phpunit/phpunit": "^8.5",
         "reliese/laravel": "^0.0.16"

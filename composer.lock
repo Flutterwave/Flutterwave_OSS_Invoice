@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1af0b5256fa67d70cd20c23db3e03d6",
+    "content-hash": "1b98b1e2b60f5f5dd66ce5e05de7f70d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5329,6 +5329,48 @@
     ],
     "packages-dev": [
         {
+            "name": "aiiro/laravel-factory-generator",
+            "version": "v0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aiiro/laravel-factory-generator.git",
+                "reference": "56a5610ac8b4042f0f70525d8692b7898000794a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aiiro/laravel-factory-generator/zipball/56a5610ac8b4042f0f70525d8692b7898000794a",
+                "reference": "56a5610ac8b4042f0f70525d8692b7898000794a",
+                "shasum": ""
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.6"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Aiiro\\Factory\\FactoryGeneratorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Aiiro\\Factory\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "aiiro",
+                    "email": "aiiro@users.noreply.github.com"
+                }
+            ],
+            "time": "2018-10-25T13:47:25+00:00"
+        },
+        {
             "name": "doctrine/instantiator",
             "version": "1.3.0",
             "source": {
@@ -5776,6 +5818,52 @@
                 "testing"
             ],
             "time": "2019-12-26T09:49:15+00:00"
+        },
+        {
+            "name": "mpociot/laravel-test-factory-helper",
+            "version": "v2.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mpociot/laravel-test-factory-helper.git",
+                "reference": "4660d6116cf451394343dea7922dc0e9de7e78c0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mpociot/laravel-test-factory-helper/zipball/4660d6116cf451394343dea7922dc0e9de7e78c0",
+                "reference": "4660d6116cf451394343dea7922dc0e9de7e78c0",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "^2.9",
+                "illuminate/console": "^6.0|^7.0",
+                "illuminate/filesystem": "^6.0|^7.0",
+                "illuminate/support": "^6.0|^7.0",
+                "php": "^7.2.5"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Mpociot\\LaravelTestFactoryHelper\\TestFactoryHelperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Mpociot\\LaravelTestFactoryHelper\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Generate Laravel test factories from your existing models",
+            "keywords": [
+                "factory",
+                "laravel",
+                "tests"
+            ],
+            "time": "2020-03-02T16:04:35+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -6458,6 +6546,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
