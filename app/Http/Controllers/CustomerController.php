@@ -30,23 +30,29 @@ class CustomerController extends Controller
     {
         $date_range = json_decode($request->date_range);
 
-        $customers = Customer::with(['country'])
-            ->id($request->id)
-            ->email($request->email)
-            ->phone($request->phone)
-            ->userId(Auth::id())
-            ->dateFrom($date_range->from)
-            ->dateTo($date_range->to)
-            ->orderBy('created_at', 'desc');
+        try {
+            $customers = Customer::with(['country'])
+                ->id($request->id)
+                ->email($request->email)
+                ->phone($request->phone)
+                ->userId(Auth::id())
+                ->dateFrom($date_range->from ?? null)
+                ->dateTo($date_range->to ?? null)
+                ->orderBy('created_at', 'desc');
 
-        if ($request->export)
-            $customers = $customers->get();
-        else
-            $customers = $customers->paginate($request->per_page);
+            if ($request->export)
+                $customers = $customers->get();
+            else
+                $customers = $customers->paginate($request->per_page);
 
 //        $this->transformCustomer($customers);
 
-        return Master::successResponse('Fetched successfully', $customers);
+            return Master::successResponse('Fetched successfully', $customers);
+        } catch (\Exception $exception) {
+            if (Master::hasDebug())
+                return Master::exceptionResponse($exception, 'Filter Customers');
+            return Master::failureResponse();
+        }
     }
 
     private function transformCustomer($customers)

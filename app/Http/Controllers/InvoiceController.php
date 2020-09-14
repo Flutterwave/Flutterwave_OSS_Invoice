@@ -40,8 +40,8 @@ class InvoiceController extends Controller
 
         $invoices = Invoice::with(['items', 'currency'])
             ->email($request->email)
-            ->dateFrom($date_range->from)
-            ->dateTo($date_range->to)
+            ->dateFrom($date_range->from ?? null)
+            ->dateTo($date_range->to ?? null)
             ->status($request->status)
             ->orderBy('created_at', 'desc');
 
