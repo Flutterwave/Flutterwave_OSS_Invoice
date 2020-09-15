@@ -19,7 +19,8 @@
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    RewriteRule ^ index.php [L]
+#    RewriteRule ^ index.php [L]
+    RewriteRule . app/index.html [L]
 
     # Authorize requests from any source
 #    Header set Access-Control-Allow-Origin "*"
