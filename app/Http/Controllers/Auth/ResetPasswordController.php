@@ -65,7 +65,7 @@ class ResetPasswordController extends Controller
     private function sendResetEmail($user, $token)
     {
         //Generate, the password reset link. The token generated is embedded in the link
-        $link = config('app.url') . 'password/reset/' . $token .
+        $link = config('app.url') . '/password/reset/' . $token .
             '?email=' . urlencode($user->email);
 
         try {
