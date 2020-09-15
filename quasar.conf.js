@@ -72,9 +72,9 @@ module.exports = function (ctx) {
                 //     exclude: /node_modules/
                 // })
 
-                // if (ctx.prod) {
-                //     cfg.output.publicPath = '/app/'
-                // }
+                if (ctx.prod) {
+                    cfg.output.publicPath = '/app/'
+                }
 
                 if (cfg.output) {
                     const CopyWebpackPlugin = require("copy-webpack-plugin");
