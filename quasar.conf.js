@@ -73,7 +73,7 @@ module.exports = function (ctx) {
                 // })
 
                 if (ctx.prod) {
-                    cfg.output.publicPath = '/app/'
+                    cfg.output.publicPath = 'app/'
                 }
 
                 if (cfg.output) {
