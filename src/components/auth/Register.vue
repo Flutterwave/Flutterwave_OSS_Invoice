@@ -11,7 +11,7 @@
                         <q-input
                             :hint="errors.first('first name')"
                             name="first name"
-                            class="bg-white"
+                            class="bg-white auth"
                             outlined
                             placeholder="First Name"
                             type="text"
@@ -24,7 +24,7 @@
                         <q-input
                             :hint="errors.first('last name')"
                             name="last name"
-                            class="bg-white"
+                            class="bg-white auth"
                             outlined
                             placeholder="Last Name"
                             type="text"
@@ -37,7 +37,7 @@
                         <q-input
                             :hint="errors.first('phone')"
                             name="phone"
-                            class="bg-white"
+                            class="bg-white auth"
                             outlined
                             placeholder="Phone"
                             type="text"
@@ -64,7 +64,7 @@
                         <q-input
                             :hint="errors.first('email')"
                             name="email"
-                            class="bg-white"
+                            class="bg-white auth"
                             outlined
                             placeholder="Email"
                             type="text"
@@ -80,11 +80,11 @@
                             name="password"
                             outlined
                             :type="isPwd ? 'password' : 'text'"
-                            class="bg-white"
+                            class="bg-white auth auth"
                             ref="password"
                             placeholder="Password"
                             v-model="form.password"
-                            v-validate="'required'">
+                            v-validate="'required|min:4'">
                             <template v-slot:append>
                                 <q-icon
                                     :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -102,7 +102,7 @@
                                  placeholder="Confirm Password" name="confirm password" outlined
                                  :type="isPwd ? 'password' : 'text'"
                                  v-model="form.password_confirmation"
-                                 v-validate="'required|confirmed:password'">
+                                 v-validate="'required|confirmed:password|min:4'">
                             <template v-slot:append>
                                 <q-icon
                                     :name="isPwd ? 'visibility_off' : 'visibility'"
@@ -153,12 +153,12 @@
                 loading: false,
                 isPwd: true,
                 form: {
-                    f_name: 'Salvation',
-                    l_name: 'Arinze',
-                    phone: '07032741119',
-                    email: 'salvation@flutterwavego.com',
-                    password: 'password',
-                    password_confirmation: 'password',
+                    f_name: '',
+                    l_name: '',
+                    phone: '',
+                    email: '',
+                    password: '',
+                    password_confirmation: '',
                     country: null
                 },
                 countries_options: null,
@@ -171,7 +171,7 @@
         },
         computed: {
             ...mapGetters('auth', ['isAuth']),
-            ...mapFields('auth', ['to_login'])
+            ...mapFields('auth', ['comp'])
         },
         created () {
             this.fetchCountries()
@@ -233,7 +233,7 @@
                 }
             },
             gotoLogin () {
-                this.to_login = !this.to_login
+                this.comp = 'login'
             },
             resetForm () {
                 this.form = {}

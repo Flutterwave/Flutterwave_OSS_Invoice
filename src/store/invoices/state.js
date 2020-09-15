@@ -1,21 +1,21 @@
 export default {
     form: {
-        to_email: 'salvation@flutterwavego.com',
-        due_date: '15-09-2020',
+        to_email: '',
+        due_date: '',
         currency: null,
         cc_emails: '',
         notes: '',
-        acc_name: 'Salvation Arinze',
-        bank: 'GTB',
-        acc_num: '0131787125',
-        shipping_fee: 100,
-        discount: 200,
-        tax: 150,
+        acc_name: '',
+        bank: '',
+        acc_num: '',
+        shipping_fee: 0,
+        discount: 0,
+        tax: 0,
         items: [
             {
-                title: 'Peach',
-                quantity: '1',
-                unit_price: '2000'
+                title: '',
+                quantity: '',
+                unit_price: ''
             }
         ],
         _send: false

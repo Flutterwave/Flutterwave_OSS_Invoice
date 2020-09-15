@@ -27,6 +27,10 @@ Route::namespace('Auth')->prefix('auth')->group(function () {
     Route::post('/user/register', 'RegisterController@createUser');
 //    Route::get('/user', 'LoginController@user');
     Route::post('/logout', 'LoginController@logout');
+
+    Route::post('/resetPassword', 'ResetPasswordController@sendResetLink')
+        ->name('send-reset-link');
+    Route::post('/updatePassword', 'ResetPasswordController@setPassword');;
 });
 
 Route::prefix('utils')->group(function () {

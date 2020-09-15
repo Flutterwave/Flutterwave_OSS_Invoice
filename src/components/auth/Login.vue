@@ -11,7 +11,7 @@
                         <q-input
                             :hint="errors.first('email')"
                             name="email"
-                            class="bg-white"
+                            class="bg-white auth"
                             outlined
                             placeholder="Email"
                             type="text"
@@ -27,7 +27,7 @@
                             name="password"
                             outlined
                             :type="isPwd ? 'password' : 'text'"
-                            class="bg-white"
+                            class="bg-white auth"
                             placeholder="Password"
                             v-model="form.password"
                             v-validate="'required'">
@@ -41,7 +41,7 @@
                         </q-input>
                     </div>
                     <div class="q-mt-md">
-                        <q-btn flat color="primary q-pr-none"
+                        <q-btn  @click="gotoPasswordReset" flat color="primary q-pr-none"
                                no-caps label="Forgot your Password?"/>
                     </div>
 
@@ -82,8 +82,8 @@
                 loading: false,
                 isPwd: true,
                 form: {
-                    email: 'salvation@flutterwavego.com',
-                    password: 'password'
+                    email: '',
+                    password: ''
                 },
                 form_rules: {
                     username: 'required|max:50',
@@ -94,7 +94,7 @@
         },
         computed: {
             ...mapGetters('auth', ['isAuth']),
-            ...mapFields('auth', ['to_login'])
+            ...mapFields('auth', ['comp'])
         },
         methods: {
             async login () {
@@ -132,7 +132,10 @@
                 }
             },
             gotoRegister() {
-                this.to_login = !this.to_login
+                this.comp = 'register'
+            },
+            gotoPasswordReset() {
+                this.comp = 'reset'
             },
             ...mapActions('auth', ['setAuthStatus', 'setUserData']),
         },

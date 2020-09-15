@@ -71,6 +71,16 @@ class Invoice extends BaseInvoice
 
     }
 
+    public function scopeUserId($query, $id)
+    {
+        if (empty($id)) {
+            return $query;
+        }
+
+        return $query->where('user_id', DB::raw($id));
+
+    }
+
     public function scopeEmail($query, $email)
     {
         if (empty($email)) {

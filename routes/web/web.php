@@ -12,5 +12,11 @@
 */
 
 Route::view('/', 'app');
+Auth::routes();
+Route::view('/verified', 'email_verified');
+Route::view('/password/reset/{token}', 'auth.passwords.reset', [
+    'email' => request()->input('email')
+]);
+
 Route::view('{all}', 'app')
     ->where(['all' => '^(?!api).*$']);

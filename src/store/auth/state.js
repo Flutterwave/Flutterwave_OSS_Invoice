@@ -1,5 +1,5 @@
 export default {
-    to_login: true,
+    comp: 'login',
     is_auth: false,
     user_data: {}
 }

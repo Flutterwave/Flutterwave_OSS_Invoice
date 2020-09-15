@@ -39,6 +39,7 @@ class InvoiceController extends Controller
         $date_range = json_decode($request->date_range);
 
         $invoices = Invoice::with(['items', 'currency'])
+            ->userId(Auth::id())
             ->email($request->email)
             ->dateFrom($date_range->from ?? null)
             ->dateTo($date_range->to ?? null)

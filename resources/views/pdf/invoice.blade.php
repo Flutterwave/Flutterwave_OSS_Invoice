@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Aloha!</title>
+    <title>Invoice #{{$invoice->ref}}</title>
 
     <style type="text/css">
         * {
