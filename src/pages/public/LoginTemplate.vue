@@ -5,7 +5,7 @@
                 <div class="text-center no-wrap" style="margin-top: 20%; margin-bottom: 10%">
                     <q-img
                         spinner-color="white"
-                        src="statics/app-logo-128x128.png"
+                        src="/statics/app-logo-128x128.png"
                         style="height: 35px; max-width: 35px"
                     />
                     <span class="q-pl-xs"
