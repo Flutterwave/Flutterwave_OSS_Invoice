@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Library\Master;
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\WelcomeEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -68,7 +69,7 @@ class RegisterController extends Controller
         $validator = Validator::make($request->all(), [
             'f_name' => 'bail|required|string',
             'l_name' => 'bail|required|string',
-            'phone' => 'bail|nullable',
+            'phone' => 'bail|nullable|unique:users,phone',
             'country' => 'bail|required|integer|exists:countries,id',
             'email' => 'bail|required|string|email|unique:users,email',
             'password' => 'bail|required|min:4|confirmed',
@@ -90,8 +91,9 @@ class RegisterController extends Controller
                 'created_at' => now()->format('c')
             ]);
 
-            DB::commit();
+            $user->notify(new WelcomeEmail($user->f_name));
 
+            DB::commit();
             $response = [
                 'user' => $user
             ];

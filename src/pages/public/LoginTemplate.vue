@@ -14,8 +14,9 @@
                     </span>
                 </div>
                 <transition name="fade" tag="div"  mode="out-in">
-                    <Login v-if="to_login"/>
-                    <Register v-else/>
+                    <Login v-if="comp === 'login'"/>
+                    <Register v-else-if="comp === 'register'"/>
+                    <PasswordReset v-else/>
                 </transition>
 <!--                <transition appear name="fade" tag="div">-->
 <!--                    -->
@@ -31,15 +32,16 @@
 
     import { mapFields } from 'vuex-map-fields'
     import Register from '../../components/auth/Register'
+    import PasswordReset from '../../components/auth/PasswordReset'
 
     export default {
         name: 'LoginTemplate',
-        components: { Register, Login },
+        components: { PasswordReset, Register, Login },
         data () {
             return {}
         },
         computed: {
-            ...mapFields('auth', ['to_login'])
+            ...mapFields('auth', ['comp'])
         },
         methods: {}
     }

@@ -12,15 +12,20 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class PasswordReset
  * 
+ * @property int $id
  * @property string $email
  * @property string $token
- * @property Carbon|null $created_at
+ * @property Carbon $created_at
+ * @property int $used
  *
  * @package App\Models\Base
  */
 class PasswordReset extends Model
 {
 	protected $table = 'password_resets';
-	public $incrementing = false;
 	public $timestamps = false;
+
+	protected $casts = [
+		'used' => 'int'
+	];
 }

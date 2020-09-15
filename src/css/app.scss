@@ -65,6 +65,9 @@ body {
     height: 50px
 }
 
+.auth > .q-field__inner .q-field__bottom {
+    background-color: #F4F6F8;
+}
 .q-field--outlined .q-field__bottom {
     color: red;
 }

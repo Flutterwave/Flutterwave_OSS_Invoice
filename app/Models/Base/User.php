@@ -34,7 +34,6 @@ class User extends Authenticatable
     use SoftDeletes;
 
     protected $table = 'users';
-    public $incrementing = false;
     public $timestamps = false;
 
     protected $casts = [
