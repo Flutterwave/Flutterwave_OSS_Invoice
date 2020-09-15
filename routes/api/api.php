@@ -18,9 +18,9 @@
 |
 */
 
-Route::get('/', function () {
-    return 'Flutterwave Invoices — OSS';
-});
+//Route::get('/', function () {
+//    return 'Flutterwave Invoices — OSS';
+//});
 
 Route::namespace('Auth')->prefix('auth')->group(function () {
     Route::post('/login', 'LoginController@authenticate');
