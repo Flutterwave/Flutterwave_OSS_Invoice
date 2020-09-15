@@ -6,7 +6,7 @@
                   v-model="drawer">
             <div class="q-mt-xl q-mb-xl text-center">
                 <div>
-                    <q-img src="/statics/app-logo-128x128.png" width="30px"/>
+                    <q-img src="~assets/app-logo-128x128.png" width="30px"/>
                     <span class="q-pl-xs"
                           style="letter-spacing: .3px; font-size: 16px; font-weight: normal;">
                         Invoices
