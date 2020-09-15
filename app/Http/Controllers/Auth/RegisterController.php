@@ -87,7 +87,7 @@ class RegisterController extends Controller
                 'email' => $request->email,
                 'phone' => $request->phone,
                 'country' => $request->country,
-                'password' => bcrypt($request->password),
+                'password' => $request->password,
                 'created_at' => now()->format('c')
             ]);
 
