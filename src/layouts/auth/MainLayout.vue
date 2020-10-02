@@ -29,7 +29,7 @@
                             <q-icon name="group"/>
                         </q-item-section>
                         <q-item-section>
-                            <q-item-label>Clients</q-item-label>
+                            <q-item-label>Customers</q-item-label>
                         </q-item-section>
                     </q-item>
 
