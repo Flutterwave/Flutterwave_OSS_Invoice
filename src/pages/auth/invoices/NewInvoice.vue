@@ -25,9 +25,20 @@
                             <span>New Customer</span>
                         </div>
                     </div>
-                    <q-input :hint="errors.first('email')" name="email" outlined
-                             placeholder="Email" v-model="form.to_email"
-                             v-validate="'required|email'"/>
+
+                    <q-select :hint="errors.first('email')"
+                              name="email"
+                              @filter="filterFn_Customers"
+                              input-debounce="0"
+                              bg-color="white"
+                              outlined use-input
+                              @input-value="setToEmail"
+                              hide-selected fill-input
+                              :options="customers_options"
+                              dense emit-value map-options
+                              v-model="form.to_email"
+                    />
+
                     <div @click="add_cc_emails = !add_cc_emails" class="link-btn q-pt-md" v-if="!add_cc_emails">
                         <q-icon class="q-pr-sm" name="add"/>
                         <span>Send to multiple emails</span>
@@ -201,6 +212,7 @@
     import Item from '../../../components/customers/Item'
 
     let currenciesData = []
+    let customersData = []
 
     export default {
         name: 'NewInvoice',
@@ -214,6 +226,7 @@
         data () {
             return {
                 currency_options: null,
+                customers_options: null,
                 add_cc_emails: false,
                 processing: false
             }
@@ -235,6 +248,7 @@
         },
         created () {
             this.fetchCurrencies()
+            this.fetchCustomers()
         },
         methods: {
             filterFn (val, update) {
@@ -249,12 +263,44 @@
                     }
                 })
             },
+            filterFn_Customers (val, update) {
+                update(() => {
+                    if (val === '') {
+                        this.customers_options = customersData
+                    } else {
+                        const needle = val.toLowerCase()
+                        this.customers_options = customersData.filter(
+                            v => v.label.toLowerCase().indexOf(needle) > -1
+                        )
+                    }
+                })
+            },
+            onBlur(evt) {
+                console.log(evt.target)
+            },
+            setToEmail(val) {
+                this.form.to_email = val
+            },
             async fetchCurrencies () {
                 const response = await UtilService.fetchCurrencies()
                 if (response.data.status) {
                     currenciesData = response.data.currencies
                     this.currency_options = currenciesData
                     this.form.currency = 'NGN'
+                } else {
+                    this.$q.notify({
+                        color: 'negative',
+                        icon: 'close',
+                        message: response.data.msg,
+                        position: 'top-right'
+                    })
+                }
+            },
+            async fetchCustomers () {
+                const response = await UtilService.fetchCustomers()
+                if (response.data.status) {
+                    customersData = response.data.customers
+                    this.customers_options = customersData
                 } else {
                     this.$q.notify({
                         color: 'negative',

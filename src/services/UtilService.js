@@ -8,6 +8,9 @@ const UtilService = {
     fetchCurrencies() {
         return axios.get(master.api('utils/fetchCurrencies'))
     },
+    fetchCustomers() {
+        return axios.get(master.api('utils/fetchCustomers'))
+    },
 }
 
 export {UtilService}
