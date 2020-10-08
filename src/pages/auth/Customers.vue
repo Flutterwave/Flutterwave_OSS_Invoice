@@ -1,8 +1,8 @@
 <template>
     <q-page class="q-pt-md q-px-xl q-pb-xl ">
         <PageHeader
-            header="Clients"
-            subheader="Create and manage your clientele here"/>
+            header="Customers"
+            subheader="Create and manage your customers here"/>
 
         <div class="q-gutter-y-md">
             <div class="q-pb-xl q-pt-lg">

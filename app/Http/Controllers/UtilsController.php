@@ -9,6 +9,7 @@ use App\Models\City;
 use App\Models\ConflictReason;
 use App\Models\Country;
 use App\Models\Currency;
+use App\Models\Customer;
 use App\Models\ExponentPushNotificationInterest;
 use App\Models\OrderStatus;
 use App\Models\SystemPref;
@@ -69,6 +70,24 @@ class UtilsController extends Controller
         return [
             'status' => true,
             'currencies' => $currencies
+        ];
+    }
+
+    public function fetchCustomers()
+    {
+
+        $customers= Customer::where('user_id', Auth::id())->get();
+
+        $customers = $customers->map(function($item, $key) {
+            return [
+                'label' => "$item->email ($item->name)",
+                'value' => $item->email
+            ];
+        });
+
+        return [
+            'status' => true,
+            'customers' => $customers
         ];
     }
 
