@@ -3,7 +3,7 @@
 
         <section class="row justify-between q-px-lg q-py-lg">
             <div class="q-mt-auto q-mb-auto text-bold">
-                <div v-if="customers">{{customers.total}} client{{customers.total > 1 ? 's' : ''}}</div>
+                <div v-if="customers">{{customers.total}} customer{{customers.total > 1 ? 's' : ''}}</div>
                 <div v-else>
                     <q-skeleton type="rect" width="10rem"/>
                 </div>
