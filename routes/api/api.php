@@ -47,6 +47,7 @@ Route::middleware(['auth:sanctum'])
     ->group(function () {
         // Invoice
         Route::get('invoices/filter', 'InvoiceController@filter');
+        Route::get('invoice/fetchInvoiceFormOptions', 'InvoiceController@fetchFormOptions');
         Route::get('invoice/{id}', 'InvoiceController@fetchInvoice');
         Route::post('invoice/edit/{id?}', 'InvoiceController@editInvoice');
         Route::delete('invoice/{id}', 'InvoiceController@deleteInvoice');

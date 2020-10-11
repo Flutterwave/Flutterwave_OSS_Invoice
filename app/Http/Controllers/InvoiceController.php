@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Library\Master;
+use App\Models\Bank;
 use App\Models\Currency;
+use App\Models\Customer;
 use App\Models\Invoice;
 use App\Models\Item;
 use App\Notifications\NewInvoice;
@@ -338,6 +340,40 @@ class InvoiceController extends Controller
             }
             return Master::failureResponse();
         }
+    }
+
+    public function fetchFormOptions(Request $request) {
+        $currencies= Currency::get();
+        $currencies = $currencies->map(function($item, $key) {
+            return [
+                'label' => $item->name,
+                'value' => $item->iso
+            ];
+        });
+
+        $customers= Customer::where('user_id', Auth::id())->get();
+        $customers = $customers->map(function($item, $key) {
+            return [
+                'label' => "$item->email ($item->name)",
+                'value' => $item->email
+            ];
+        });
+
+        $banks= Bank::orderBy('name', 'asc')->get();
+        $banks = $banks->map(function($item, $key) {
+            return [
+                'label' => $item->name,
+                'value' => $item->name
+            ];
+        });
+
+
+        return [
+            'status' => true,
+            'currencies' => $currencies,
+            'customers' => $customers,
+            'banks' => $banks,
+        ];
     }
 
 

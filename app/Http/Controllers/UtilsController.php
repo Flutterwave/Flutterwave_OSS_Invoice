@@ -91,4 +91,21 @@ class UtilsController extends Controller
         ];
     }
 
+    public function fetchBanks()
+    {
+        $banks= Bank::get();
+
+        $banks = $banks->map(function($item, $key) {
+            return [
+                'label' => $item->name,
+                'value' => $item->name
+            ];
+        });
+
+        return [
+            'status' => true,
+            'banks' => $banks
+        ];
+    }
+
 }

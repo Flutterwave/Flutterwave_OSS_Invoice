@@ -11,6 +11,9 @@ const UtilService = {
     fetchCustomers() {
         return axios.get(master.api('utils/fetchCustomers'))
     },
+    fetchInvoiceFormOptions() {
+        return axios.get(master.api('invoice/fetchInvoiceFormOptions'))
+    },
 }
 
 export {UtilService}

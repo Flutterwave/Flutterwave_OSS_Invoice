@@ -58,7 +58,7 @@
                                     </q-item>
                                     <q-item @click="sendInvoice" clickable v-close-popup
                                             v-if="invoice.status !== 'paid'">
-                                        <q-item-section>{{invoice.status === 'issued' ? 'Res':'S'}}end Invoice
+                                        <q-item-section>{{['issued', 'due'].includes(invoice.status) ? 'Res':'S'}}end Invoice
                                         </q-item-section>
                                     </q-item>
                                     <q-item @click="deleteInvoice" clickable v-close-popup>
