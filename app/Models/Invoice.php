@@ -36,7 +36,7 @@ class Invoice extends BaseInvoice
         if (empty($value))
             return null;
 
-        if (Carbon::parse($this->due_date)->lt(Carbon::now()))
+        if (Carbon::parse($this->due_date)->lt(Carbon::now()) && $value === 'issued')
             return 'due';
 
         return $value;

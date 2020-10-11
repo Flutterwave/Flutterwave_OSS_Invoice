@@ -135,8 +135,17 @@
                                 <div class="row subject-header">
                                     <div>Bank</div>
                                 </div>
-                                <q-input :hint="errors.first('bank')" name="bank" outlined placeholder="Bank"
-                                         v-model="form.bank" v-validate="'required'"/>
+                                <q-select
+                                    :hint="errors.first('bank')" name="bank"
+                                    :options="banks_options"
+                                    @filter="filterFn_Banks"
+                                    bg-color="white"
+                                    dense emit-value
+                                    fill-input hide-selected
+                                    input-debounce="200" map-options
+                                    outlined use-input
+                                    v-model="form.bank"
+                                />
                             </div>
                             <div class="col-3">
                                 <div class="row subject-header">
@@ -213,6 +222,7 @@
 
     let currenciesData = []
     let customersData = []
+    let banksData = []
 
     export default {
         name: 'NewInvoice',
@@ -227,6 +237,7 @@
             return {
                 currency_options: null,
                 customers_options: null,
+                banks_options: null,
                 add_cc_emails: false,
                 processing: false
             }
@@ -247,8 +258,7 @@
             ...mapFields('invoices', ['form', 'num_items'])
         },
         created () {
-            this.fetchCurrencies()
-            this.fetchCustomers()
+            this.fetchInvoiceFormOptions()
         },
         methods: {
             filterFn (val, update) {
@@ -275,32 +285,34 @@
                     }
                 })
             },
+            filterFn_Banks (val, update) {
+                update(() => {
+                    if (val === '') {
+                        this.banks_options = banksData
+                    } else {
+                        const needle = val.toLowerCase()
+                        this.banks_options = banksData.filter(
+                            v => v.label.toLowerCase().indexOf(needle) > -1
+                        )
+                    }
+                })
+            },
             onBlur(evt) {
                 console.log(evt.target)
             },
             setToEmail(val) {
                 this.form.to_email = val
             },
-            async fetchCurrencies () {
-                const response = await UtilService.fetchCurrencies()
+            async fetchInvoiceFormOptions () {
+                const response = await UtilService.fetchInvoiceFormOptions()
                 if (response.data.status) {
                     currenciesData = response.data.currencies
                     this.currency_options = currenciesData
-                    this.form.currency = 'NGN'
-                } else {
-                    this.$q.notify({
-                        color: 'negative',
-                        icon: 'close',
-                        message: response.data.msg,
-                        position: 'top-right'
-                    })
-                }
-            },
-            async fetchCustomers () {
-                const response = await UtilService.fetchCustomers()
-                if (response.data.status) {
                     customersData = response.data.customers
                     this.customers_options = customersData
+                    banksData = response.data.banks
+                    this.banks_options = banksData
+                    this.form.currency = 'NGN'
                 } else {
                     this.$q.notify({
                         color: 'negative',
