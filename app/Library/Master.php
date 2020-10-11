@@ -48,6 +48,6 @@ class Master
 
     public static function hasDebug()
     {
-        return env('APP_DEBUG', false);
+        return config('app.debug', false);
     }
 }
