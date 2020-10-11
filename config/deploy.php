@@ -95,7 +95,7 @@ return [
 
     'options' => [
         'application' => env('APP_NAME', 'Laravel'),
-        'repository' => 'https://github.com/salvationarinze/flw-invoices.git',
+        'repository' => 'git@github.com:salvationarinze/flw-invoices.git',
         'php_fpm_service' => 'php7.3-fpm',
     ],
 
@@ -111,9 +111,9 @@ return [
     */
 
     'hosts' => [
-        'www.flwinvoices.tk' => [
-            'deploy_path' => '/home/cloudpanel/htdocs/www.flwinvoices.tk',
-            'user' => 'modernbabbage-ssh',
+        'flwinvoices.tk' => [
+            'deploy_path' => '/home/cloudpanel/htdocs/flwinvoices.tk',
+            'user' => 'root',
         ],
     ],
 
