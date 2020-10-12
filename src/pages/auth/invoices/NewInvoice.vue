@@ -8,11 +8,11 @@
             <section class="row justify-between q-px-lg q-py-lg">
                 <div class="text-bold text-16">Create Invoice</div>
                 <div class="q-gutter-md">
-                    <q-btn @click="saveInvoice(false)" class="shadow-btn text-bold sm-btn" color="white"
-                           label="Save Invoice"
+                    <q-btn :disable="isProcessing" @click="saveInvoice(false)" class="shadow-btn text-bold sm-btn"
+                           color="white" label="Save Invoice"
                            no-caps text-color="black" unelevated/>
-                    <q-btn @click="saveInvoice(true)" class="shadow-btn text-bold sm-btn" color="orange-4"
-                           label="Send Invoice" no-caps text-color="white" unelevated/>
+                    <q-btn :disable="isProcessing" @click="saveInvoice(true)" class="shadow-btn text-bold sm-btn"
+                           color="orange-4" label="Send Invoice" no-caps text-color="white" unelevated/>
                 </div>
             </section>
 
@@ -27,16 +27,17 @@
                     </div>
 
                     <q-select :hint="errors.first('email')"
-                              name="email"
-                              @filter="filterFn_Customers"
-                              input-debounce="0"
-                              bg-color="white"
-                              outlined use-input
-                              @input-value="setToEmail"
-                              hide-selected fill-input
                               :options="customers_options"
-                              dense emit-value map-options
+                              @filter="filterFn_Customers"
+                              @input-value="setToEmail"
+                              bg-color="white"
+                              dense emit-value
+                              fill-input
+                              hide-selected input-debounce="0"
+                              map-options
+                              name="email" outlined use-input
                               v-model="form.to_email"
+                              v-validate="'required'"
                     />
 
                     <div @click="add_cc_emails = !add_cc_emails" class="link-btn q-pt-md" v-if="!add_cc_emails">
@@ -52,8 +53,8 @@
                     <div class="row justify-between subject-header">
                         <div class="q-my-auto">Due Date</div>
                     </div>
-                    <q-input @click="$refs.dueDate.show()" class="col-5" dense name="Due date"
-                             outlined placeholder="Due Date" v-model="form.due_date"
+                    <q-input :hint="errors.first('due date')" @click="$refs.dueDate.show()" class="col-5" dense
+                             name="due date" outlined placeholder="Due Date" v-model="form.due_date"
                              v-validate="'required|date_format:dd-MM-yyyy'">
                         <template v-slot:append>
                             <div>
@@ -124,38 +125,42 @@
                             <div class="text-grey text-bold">Payment Information</div>
                         </div>
                         <div class="row justify-between" style="width: 90%">
-                            <div class="col-4">
-                                <div class="row subject-header">
-                                    <div>Account Name</div>
-                                </div>
-                                <q-input :hint="errors.first('account name')" name="account name" outlined
-                                         placeholder="Account name" v-model="form.acc_name" v-validate="'required'"/>
-                            </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div class="row subject-header">
                                     <div>Bank</div>
                                 </div>
                                 <q-select
-                                    :hint="errors.first('bank')" name="bank"
-                                    :options="banks_options"
+                                    :hint="errors.first('bank')" :options="banks_options"
+                                    @blur="verifyAccountNumber"
                                     @filter="filterFn_Banks"
-                                    bg-color="white"
-                                    dense emit-value
-                                    fill-input hide-selected
-                                    input-debounce="200" map-options
+                                    bg-color="white" dense
+                                    emit-value fill-input
+                                    hide-selected input-debounce="200"
+                                    map-options name="bank"
                                     outlined use-input
                                     v-model="form.bank"
+                                    v-validate="'required'"
                                 />
                             </div>
                             <div class="col-3">
                                 <div class="row subject-header">
                                     <div>Account Number</div>
                                 </div>
-                                <q-input :hint="errors.first('account number')" name="account number" outlined
-                                         placeholder="Account Number" v-model="form.acc_num"
+                                <q-input :hint="errors.first('account number')" @blur="verifyAccountNumber"
+                                         name="account number"
+                                         outlined placeholder="Account Number" v-model="form.acc_num"
                                          v-validate="'required|digits:10'"/>
                             </div>
-
+                            <div class="col-5">
+                                <div class="row subject-header">
+                                    <div>Account Name</div>
+                                </div>
+                                <q-input :error="acc_unresolved" :error-message="acc_hint"
+                                         :hint="errors.first('account name')"
+                                         name="account name"
+                                         outlined placeholder="Account name"
+                                         readonly v-model="form.acc_name" v-validate="'required'"/>
+                            </div>
 
                         </div>
                     </div>
@@ -218,7 +223,7 @@
     import { UtilService } from '../../../services/UtilService'
     import { mapFields } from 'vuex-map-fields'
     import EditCustomer from '../../../components/customers/EditCustomer'
-    import Item from '../../../components/customers/Item'
+    import Item from '../../../components/invoices/Item'
 
     let currenciesData = []
     let customersData = []
@@ -239,7 +244,10 @@
                 customers_options: null,
                 banks_options: null,
                 add_cc_emails: false,
-                processing: false
+                processing: false,
+                acc_unresolved: null,
+                acc_hint: '',
+                isProcessing: false
             }
         },
         computed: {
@@ -297,10 +305,7 @@
                     }
                 })
             },
-            onBlur(evt) {
-                console.log(evt.target)
-            },
-            setToEmail(val) {
+            setToEmail (val) {
                 this.form.to_email = val
             },
             async fetchInvoiceFormOptions () {
@@ -320,6 +325,25 @@
                         message: response.data.msg,
                         position: 'top-right'
                     })
+                }
+            },
+            async verifyAccountNumber () {
+                if (this.form.bank !== '' && this.form.acc_num.length === 10) {
+                    this.isProcessing = true
+                    const response = await UtilService.verifyAccountNumber({
+                        'acc_num': this.form.acc_num,
+                        'bank': this.form.bank
+                    })
+                    if (response.data.status) {
+                        this.form.acc_name = response.data.acc_name
+                        this.acc_unresolved = false
+                        this.acc_hint = ''
+                    } else {
+                        this.acc_unresolved = true
+                        this.acc_hint = response.data.msg
+                    }
+
+                    this.isProcessing = false
                 }
             },
             addCustomer () {
@@ -373,22 +397,22 @@
             },
             resetForm () {
                 this.form = {
-                    to_email: 'salvation@flutterwavego.com',
-                    due_date: '15-09-2020',
+                    to_email: '',
+                    due_date: '',
                     currency: null,
                     cc_emails: '',
                     notes: '',
-                    acc_name: 'Salvation Arinze',
-                    bank: 'GTB',
-                    acc_num: '0131787125',
-                    shipping_fee: 100,
-                    discount: 200,
-                    tax: 150,
+                    acc_name: '',
+                    bank: '',
+                    acc_num: '',
+                    shipping_fee: 0,
+                    discount: 0,
+                    tax: 0,
                     items: [
                         {
-                            title: 'Peach',
-                            quantity: '1',
-                            unit_price: '2000'
+                            title: '',
+                            quantity: '',
+                            unit_price: ''
                         }
                     ],
                     _send: false

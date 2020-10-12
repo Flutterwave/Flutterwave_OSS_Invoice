@@ -37,6 +37,7 @@ Route::prefix('utils')->group(function () {
     Route::get('fetchCountries', 'UtilsController@fetchCountries');
     Route::get('fetchCurrencies', 'UtilsController@fetchCurrencies');
     Route::get('fetchCustomers', 'UtilsController@fetchCustomers');
+    Route::get('verifyAccountNumber', 'UtilsController@verifyAccountNumber');
 });
 
 Route::middleware(['auth:sanctum'])

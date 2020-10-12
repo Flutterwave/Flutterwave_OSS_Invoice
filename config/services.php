@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'flutterwave' => [
+        'public' => env('FLUTTERWAVE_PUBLIC_KEY'),
+        'secret' =>  env('FLUTTERWAVE_SECRET_KEY'),
+    ]
+
 ];

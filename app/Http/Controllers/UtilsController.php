@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Library\Master;
 use App\Models\Bank;
 use App\Models\CardType;
 use App\Models\City;
@@ -17,11 +16,9 @@ use App\Models\TransactionType;
 use App\Models\TransCompany;
 use App\Models\Vehicle;
 use App\Models\VehicleType;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Http;
 use Spatie\Permission\Models\Role;
 
 class UtilsController extends Controller
@@ -42,7 +39,7 @@ class UtilsController extends Controller
 
         $countries = Country::get();
 
-        $countries = $countries->map(function($item, $key) {
+        $countries = $countries->map(function ($item, $key) {
             return [
                 'label' => $item->name,
                 'value' => $item->id
@@ -58,9 +55,9 @@ class UtilsController extends Controller
     public function fetchCurrencies()
     {
 
-        $currencies= Currency::get();
+        $currencies = Currency::get();
 
-        $currencies = $currencies->map(function($item, $key) {
+        $currencies = $currencies->map(function ($item, $key) {
             return [
                 'label' => $item->name,
                 'value' => $item->iso
@@ -76,9 +73,9 @@ class UtilsController extends Controller
     public function fetchCustomers()
     {
 
-        $customers= Customer::where('user_id', Auth::id())->get();
+        $customers = Customer::where('user_id', Auth::id())->get();
 
-        $customers = $customers->map(function($item, $key) {
+        $customers = $customers->map(function ($item, $key) {
             return [
                 'label' => "$item->email ($item->name)",
                 'value' => $item->email
@@ -93,9 +90,9 @@ class UtilsController extends Controller
 
     public function fetchBanks()
     {
-        $banks= Bank::get();
+        $banks = Bank::get();
 
-        $banks = $banks->map(function($item, $key) {
+        $banks = $banks->map(function ($item, $key) {
             return [
                 'label' => $item->name,
                 'value' => $item->name
@@ -105,6 +102,29 @@ class UtilsController extends Controller
         return [
             'status' => true,
             'banks' => $banks
+        ];
+    }
+
+    public function verifyAccountNumber(Request $request)
+    {
+        $res = Http::withToken(config('services.flutterwave.secret'))
+            ->post('https://api.flutterwave.com/v3/accounts/resolve',
+                [
+                    "account_number" => $request->acc_num,
+                    "account_bank" => Bank::where('name', $request->bank)->first()->code
+                ]);
+
+        if ($res->successful()) {
+            return [
+                'status' => true,
+                'acc_name' => $res->json()['data']['account_name']
+            ];
+        }
+
+        return [
+            'status' => false,
+            'msg' => 'Account not resolved',
+            'data' => $res->json()
         ];
     }
 
