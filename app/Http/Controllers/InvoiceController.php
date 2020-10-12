@@ -150,9 +150,7 @@ class InvoiceController extends Controller
             $invoice->to_email = $request->to_email ?? $invoice->to_email;
             $invoice->cc_emails = $request->cc_emails ?? $invoice->cc_emails;
             $invoice->notes = $request->notes ?? $invoice->notes;
-            $invoice->status = $invoice->status == 'draft' || $invoice->status == null ?
-                ($request->_send == 'true' ? 'issued' : 'draft') :
-                $invoice->status;
+            $invoice->status = $invoice->status == null ? 'draft' : $invoice->status;
             $invoice->issued_at = $request->_send == 'true' ? now()->format('c') : null;
             $invoice->due_date = Carbon::parse($request->due_date)->format('c') ?? $invoice->due_date;
             $invoice->created_at = now()->format('c') ?? $invoice->created_at;
@@ -179,6 +177,8 @@ class InvoiceController extends Controller
 
             if ($request->_send == 'true') {
                 $this->_sendInvoice($invoice);
+                $invoice->status = 'issued';
+                $invoice->save();
             }
 
             DB::commit();

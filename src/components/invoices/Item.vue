@@ -13,7 +13,7 @@
         <div class="col-2">
             <q-input :hint="errors.first('price')" name="price" dense outlined type="number"
                      placeholder="Price" v-model="form.items[id].unit_price"
-                     v-validate="'required|decimal:2'"/>
+                     v-validate="'required'"/>
         </div>
         <div class="col-2 text-right">
             <div class="column justify-center" style="height: 50px;">

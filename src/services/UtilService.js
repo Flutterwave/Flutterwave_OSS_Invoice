@@ -14,6 +14,11 @@ const UtilService = {
     fetchInvoiceFormOptions() {
         return axios.get(master.api('invoice/fetchInvoiceFormOptions'))
     },
+    verifyAccountNumber(payload) {
+        return axios.get(master.api('utils/verifyAccountNumber'), {
+            params: payload
+        })
+    },
 }
 
 export {UtilService}
