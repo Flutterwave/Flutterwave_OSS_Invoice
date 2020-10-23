@@ -4,7 +4,8 @@
 
 # Flutterwave Invoices #
 
-This is an invoicing tool created by Flutterwave to assist merchants, entrepreneurs, freelancers to adequately record and send invoices for goods and services rendered.
+This is an invoicing tool created by Flutterwave to assist merchants, entrepreneurs, freelancers to adequately record and send invoices for goods and services rendered. It is built with Laravel and Vue.
+
 You can add customers, create invoices, set deadlines and update them as you see fit.
 Flutterwave is available in: **Nigeria, Ghana, Kenya, Uganda, Rwanda, South Africa, United States** and 90+ Countries. Sign up for an account [here](https://dashboard.flutterwave.com)
 
@@ -84,10 +85,10 @@ Run `vendor/bin/phpunit`
 
 Mention the tools used in developing this package, e.g:
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [Laravel](https://laravel.com/)
+- [MySQL](https://www.mysql.com/)
+- [Vue](https://vuejs.org/)
+- [Quasar](https://quasar.dev/)
 
 ## Contributors
 
